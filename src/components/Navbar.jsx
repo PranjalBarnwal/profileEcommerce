@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className="bg-white dark:bg-gray-800 shadow-md p-4 flex justify-between items-center">
       <Link to="/" className="text-xl font-bold text-gray-900 dark:text-white">
-      Luxe
+      Luxee
       </Link>
       <div className="flex space-x-4 items-center">
         <Link
