@@ -18,7 +18,7 @@ const CartSummary = () => {
 
   const handleApplyCoupon = () => {
    
-    if (couponCode === 'DISCOUNT10') {
+    if (couponCode === 'FIRST10') {
       setDiscount(10); 
     } else {
       setDiscount(0);
@@ -37,6 +37,11 @@ const CartSummary = () => {
         <span>Total Amount:</span>
         <span>₹{totalAmount.toFixed(2)}</span>
       </div>
+      <div className="flex justify-between text-red-400 dark:text-white mt-2">
+        Use coupon "FIRST10" for 10% discount 
+        
+      </div>
+      
       {discount > 0 && (
         <div className="flex justify-between text-gray-900 dark:text-white mt-2">
           <span>Discount ({discount}%):</span>
@@ -53,7 +58,7 @@ const CartSummary = () => {
           value={couponCode}
           onChange={(e) => setCouponCode(e.target.value)}
           placeholder="Enter coupon code"
-          className="border border-gray-300 dark:border-gray-700 dark:text-black rounded-lg px-3 py-2 w-full"
+          className="border max-w-[20rem] mr-4 border-gray-300 dark:border-gray-700 dark:text-black rounded-lg px-3 py-2 w-full"
         />
         <button
           onClick={handleApplyCoupon}
