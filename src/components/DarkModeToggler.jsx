@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDarkMode } from '../contexts/DarkModeContext';
-import { Moon, SunMedium } from './../assets/icons';
+import { Moon, SunMedium } from '../utilities/icons';
 
 const DarkModeToggler = () => {
   const { darkMode, toggleDarkMode } = useDarkMode();

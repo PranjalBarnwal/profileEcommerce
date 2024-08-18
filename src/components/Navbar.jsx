@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingCart, Heart } from "./../assets/icons";
+import { ShoppingCart, Heart } from "./../utilities/icons";
 import DarkModeToggler from "./DarkModeToggler";
 import { addToken } from "../slices/cartSlice";
 

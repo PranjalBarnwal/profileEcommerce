@@ -8,7 +8,7 @@ import {
 import toast from "react-hot-toast";
 
 
-import { ShoppingCart, FaHeart, Star, Heart } from "./../assets/icons";
+import { ShoppingCart, FaHeart, Star, Heart, FaStar } from "../utilities/icons";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const ProductCard = ({ product }) => {
           <span className="text-gray-600 dark:text-gray-300 font-bold">
             {product.rating}
           </span>
-          <Star className="h-5 w-5 text-yellow-500 ml-1" />
+          <FaStar className="h-5 w-5 text-yellow-500 ml-1" />
         </div>
         <div className="flex space-x-2 mt-4">
           <button

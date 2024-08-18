@@ -6,6 +6,9 @@ import {auth} from "../firebase"
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addToken } from '../slices/cartSlice';
+import { handleAuthError } from '../utilities/handleAuthError';
+
+
 const Signup = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
@@ -17,21 +20,15 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    console.log(user);
-    dispatch(addToken(user.accessToken));
-    navigate("/");
-
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    setErr(errorCode+" "+errorMessage);
-
-  });
+      .then((userCredential) => {
+        const user = userCredential.user;
+        dispatch(addToken(user.accessToken));
+        navigate("/");
+      })
+      .catch((error) => {
+        setErr(handleAuthError(error.code));
+      });
   };
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">

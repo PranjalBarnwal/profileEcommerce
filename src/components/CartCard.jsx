@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { removeItem, adjustQuantity } from "../slices/cartSlice";
-import { Trash2 } from "./../assets/icons";
+import { Trash2 } from "../utilities/icons";
 
 const CartCard = ({ item }) => {
   const dispatch = useDispatch();

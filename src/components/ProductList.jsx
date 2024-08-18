@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import ShimmerCard from "./ShimmerCard";
-import { products as allProducts } from "../assets/products";
+import { products as allProducts } from "../utilities/products";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCart, setWishlist } from "../slices/cartSlice";
-import { getDocs } from "firebase/firestore";
-import { cartCollectionRef, wishlistCollectionRef } from "../slices/cartSlice";
-import InfiniteScroll from "react-infinite-scroll-component"; // Import InfiniteScroll
+import { getDoc, doc } from "firebase/firestore";
+import { db, auth } from "../firebase";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -23,15 +23,29 @@ const ProductList = () => {
     if (!token) navigate("/login");
 
     const fetchCartFromFirestore = async () => {
-      const cartSnapshot = await getDocs(cartCollectionRef);
-      const cartData = cartSnapshot.docs.map((doc) => doc.data());
-      dispatch(setCart(cartData[0]?.items || []));
+      const user = auth.currentUser;
+      if (user) {
+        const cartDocRef = doc(db, "carts", user.uid);
+        const cartSnapshot = await getDoc(cartDocRef);
+        if (cartSnapshot.exists()) {
+          dispatch(setCart(cartSnapshot.data()?.items || []));
+        } else {
+          dispatch(setCart([]));
+        }
+      }
     };
 
     const fetchWishlistFromFirestore = async () => {
-      const wishlistSnapshot = await getDocs(wishlistCollectionRef);
-      const wishlistData = wishlistSnapshot.docs.map((doc) => doc.data());
-      dispatch(setWishlist(wishlistData[0]?.wishlist || []));
+      const user = auth.currentUser;
+      if (user) {
+        const wishlistDocRef = doc(db, "wishlists", user.uid);
+        const wishlistSnapshot = await getDoc(wishlistDocRef);
+        if (wishlistSnapshot.exists()) {
+          dispatch(setWishlist(wishlistSnapshot.data()?.wishlist || []));
+        } else {
+          dispatch(setWishlist([]));
+        }
+      }
     };
 
     fetchWishlistFromFirestore();
@@ -69,7 +83,7 @@ const ProductList = () => {
         loader={
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {Array.from({ length: 4 }).map((_, index) => (
-              <ShimmerCard key={index} />
+              <ShimmerCard key={`loader-${currentPage}-${index}`} />
             ))}
           </div>
         }
@@ -80,10 +94,10 @@ const ProductList = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {loading
             ? Array.from({ length: 8 }).map((_, index) => (
-                <ShimmerCard key={index} />
+                <ShimmerCard key={`shimmer-${index}`} />
               ))
-            : products.map((product) => (
-                <ProductCard key={product.id} product={product} />
+            : products.map((product, index) => (
+                <ProductCard key={`${product.id}-${index}`} product={product} />
               ))}
         </div>
       </InfiniteScroll>

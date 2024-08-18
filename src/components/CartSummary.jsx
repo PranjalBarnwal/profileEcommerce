@@ -83,7 +83,7 @@ const CartSummary = () => {
         <span>₹{discountedAmount.toFixed(2)}</span>
       </div>
       <div className="mt-4 flex flex-col gap-2">
-        <div className="flex items-center">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <input
             type="text"
             value={couponCode}
@@ -98,7 +98,7 @@ const CartSummary = () => {
               appliedCoupon
                 ? "bg-gray-500 hover:bg-gray-600"
                 : "bg-blue-500 hover:bg-blue-600"
-            } text-white text-sm py-[0.6rem] px-1 rounded ml-2`}
+            } text-white text-sm py-[0.6rem] px-4 rounded`}
           >
             {appliedCoupon ? "Remove" : "Apply"}
           </button>

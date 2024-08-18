@@ -1,14 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   collection,
-  addDoc,
-  deleteDoc,
-  doc,
-  getDocs,
   setDoc,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import { useDispatch } from "react-redux";
+import { auth } from "../firebase";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -24,10 +22,8 @@ const cartSlice = createSlice({
     setCart: (state, action) => {
       state.items = action.payload;
     },
-    setWishlist:(state,action)=>{
-      state.wishlist=action.payload;
-      console.log("hello from slice");
-      
+    setWishlist: (state, action) => {
+      state.wishlist = action.payload;
     },
     addItem: (state, action) => {
       const existingItem = state.items.find(
@@ -82,15 +78,22 @@ const cartSlice = createSlice({
   },
 });
 
-export const cartCollectionRef = collection(db, "cart");
-export const wishlistCollectionRef = collection(db, "wishlist");
-
 const saveCartToFirestore = async (items) => {
-  await setDoc(doc(cartCollectionRef, "userCart"), { items });
+  const user = auth.currentUser;
+
+  if (user) {
+    const cartDocRef = doc(db, "carts", user.uid);
+    await setDoc(cartDocRef, { items });
+  }
 };
 
 const saveWishlistToFirestore = async (wishlist) => {
-  await setDoc(doc(wishlistCollectionRef, "userWishlist"), { wishlist });
+  const user = auth.currentUser;
+
+  if (user) {
+    const wishlistDocRef = doc(db, "wishlists", user.uid);
+    await setDoc(wishlistDocRef, { wishlist });
+  }
 };
 
 export const {
