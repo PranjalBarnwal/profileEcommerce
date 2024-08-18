@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import CartPage from "./components/CartPage";
 import WishlistPage from "./components/WishlistPage";
 import { Toaster } from "react-hot-toast";
+import ErrorPage from "./components/ErrorPage";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
         <Footer />
         <Toaster toastOptions={{duration:700}}/>
