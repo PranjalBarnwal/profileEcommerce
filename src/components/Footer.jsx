@@ -4,19 +4,19 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 dark:bg-gray-900 text-white py-6 mt-12">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-center items-center mx-auto w-full md:w-2/3">
-          <div className="w-full md:w-1/3 mb-4 md:mb-0">
+        <div className="flex flex-wrap justify-center items-center">
+          <div className="w-full md:w-1/3 mb-4 md:mb-0 text-center">
             <h3 className="text-lg font-semibold mb-2">Luxe</h3>
-            <p>© 2024 Luxe. All rights reserved.</p>
+            <p>© 2024 Roch. All rights reserved.</p>
           </div>
-          <div className="w-full md:w-1/3 mb-4 md:mb-0">
+          <div className="w-full md:w-1/3 mb-4 md:mb-0 text-center">
             <h4 className="text-lg font-semibold mb-2">Address</h4>
-            <p>123 Luxe Avenue, Suite 101</p>
-            <p>Fashion City, FS 45678</p>
+            <p>Outlet no. 95, Sarjapur</p>
+            <p>Bangalore, Karnataka 562125</p>
           </div>
-          <div className="w-full md:w-1/3">
+          <div className="w-full md:w-1/3 text-center">
             <h4 className="text-lg font-semibold mb-2">Contact Us</h4>
-            <p>Email: info@luxe.com</p>
+            <p>Email: info@roch.com</p>
             <p>Phone: (123) 456-7890</p>
           </div>
         </div>

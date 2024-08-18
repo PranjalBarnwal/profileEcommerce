@@ -5,9 +5,10 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../slices/cartSlice";
+import toast from "react-hot-toast";
 
-import { toast } from "react-toastify";
-import { ShoppingCart, Heart, Star } from "./../assets/icons";
+
+import { ShoppingCart, FaHeart, Star, Heart } from "./../assets/icons";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -17,17 +18,18 @@ const ProductCard = ({ product }) => {
   const handleHeartClick = () => {
     if (isLiked) {
       dispatch(removeFromWishlist(product.id));
-      // toast("Removed from Wishlist!");
+      toast("Removed from Wishlist!");
     } else {
       dispatch(addToWishlist(product));
-      setShowConfetti(true);
-      // toast("Added to Wishlist!");
+      toast("Added to Wishlist!",{
+        icon:'😍'
+      });
     }
   };
 
   const handleAddToCart = () => {
     dispatch(addItem({ ...product, price: discountedPrice, quantity: 1 }));
-    // toast("Added to Cart!");
+    toast.success("Added to Cart!");
   };
   return (
     <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
@@ -63,8 +65,9 @@ const ProductCard = ({ product }) => {
             onClick={handleHeartClick}
             className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-2 px-4 rounded"
           >
-            <Heart color={isLiked ? "red" : "#383535"} />
+            <FaHeart size={20} color={isLiked ? "red" : "#383535"} />
           </button>
+         
         </div>
       </div>
     </div>

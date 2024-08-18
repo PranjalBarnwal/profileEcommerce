@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import "./index.css";
 import { DarkModeProvider } from "./contexts/DarkModeContext.jsx";
 import { HashRouter as Router } from 'react-router-dom';
-import { ToastContainer } from "react-toastify";
 import store from "./store.js";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -13,7 +12,6 @@ createRoot(document.getElementById("root")).render(
     <Router>
       <DarkModeProvider>
         <App />
-        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
       </DarkModeProvider>
       </Router>
     </Provider>

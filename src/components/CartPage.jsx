@@ -1,24 +1,32 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import CartCard from "./CartCard";
 import CartSummary from "./CartSummary";
+import { useNavigate } from "react-router-dom";
+
 
 const CartPage = () => {
+  const navigate = useNavigate();
+  const token = useSelector((state) => !!state.cart.token);
   const cartItems = useSelector((state) => state.cart.items);
-    console.log(cartItems);
-    
+
+  useEffect(() => {
+    if (!token) navigate("/login");   
+  }, []);
+
+ 
+
   const groupedItems = cartItems.reduce((acc, item) => {
     const existingItem = acc.find((i) => i.id === item.id);
     if (existingItem) {
-        
       existingItem.quantity += item.quantity;
     } else {
       acc.push({ ...item, quantity: item.quantity });
     }
     return acc;
   }, []);
-  console.log(groupedItems);
   
+
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Cart</h2>

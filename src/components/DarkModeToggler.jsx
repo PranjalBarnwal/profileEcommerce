@@ -7,11 +7,12 @@ const DarkModeToggler = () => {
 
   return (
     <button 
-      onClick={toggleDarkMode} 
-      className="p-2 rounded-md bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200"
-    >
-      {darkMode ? <SunMedium className="h-6 w-6" /> : <Moon className="h-6 w-6" />}
-    </button>
+  onClick={toggleDarkMode} 
+  className="p-[0.4rem] rounded-md bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-500 transition"
+>
+  {darkMode ? <SunMedium  className="h-5 w-5" /> : <Moon  className="h-5 w-5" />}
+</button>
+
   );
 };
 

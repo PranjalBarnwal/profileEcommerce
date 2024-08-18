@@ -5,7 +5,7 @@ import { Trash2 } from "./../assets/icons";
 
 const CartCard = ({ item }) => {
   const dispatch = useDispatch();
-    console.log(item);
+    // console.log(item);
     
   const handleRemove = () => {
     dispatch(removeItem(item.id));
@@ -19,7 +19,7 @@ const CartCard = ({ item }) => {
   };
 
   return (
-    <div className="flex items-center p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg max-w-md">
+    <div className="flex items-center p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg ">
       <img
         className="w-20 h-20 object-contain rounded-lg"
         src={item.image}

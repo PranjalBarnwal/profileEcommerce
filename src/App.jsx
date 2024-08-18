@@ -6,6 +6,9 @@ import ProductList from "./components/ProductList";
 import Footer from "./components/Footer";
 import CartPage from "./components/CartPage";
 import WishlistPage from "./components/WishlistPage";
+import { Toaster } from "react-hot-toast";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 
 const App = () => {
@@ -16,8 +19,11 @@ const App = () => {
         <Route path="/" element={<ProductList />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
         <Footer />
+        <Toaster toastOptions={{duration:700}}/>
       </div>
   );
 };
