@@ -17,13 +17,25 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [userName, setUserName] = useState("");
   const productsPerPage = 12;
 
   useEffect(() => {
     if (!token) navigate("/login");
+    const user = auth.currentUser;
+    
+    
+    const fetchUserName = () => {
+      if (user) {
+        setUserName(user.email.substring(0,user.email.indexOf("@")) || "");
+      }
+      setTimeout(()=>{
+        setUserName("")
+      },5000)
+      
+    };
 
     const fetchCartFromFirestore = async () => {
-      const user = auth.currentUser;
       if (user) {
         const cartDocRef = doc(db, "carts", user.uid);
         const cartSnapshot = await getDoc(cartDocRef);
@@ -36,7 +48,6 @@ const ProductList = () => {
     };
 
     const fetchWishlistFromFirestore = async () => {
-      const user = auth.currentUser;
       if (user) {
         const wishlistDocRef = doc(db, "wishlists", user.uid);
         const wishlistSnapshot = await getDoc(wishlistDocRef);
@@ -48,6 +59,7 @@ const ProductList = () => {
       }
     };
 
+    fetchUserName();
     fetchWishlistFromFirestore();
     fetchCartFromFirestore();
 
@@ -55,7 +67,7 @@ const ProductList = () => {
       setProducts(allProducts.slice(0, productsPerPage));
       setLoading(false);
     }, 1000);
-  }, [token, dispatch, navigate]);
+  }, []);
 
   const fetchMoreData = () => {
     setTimeout(() => {
@@ -76,6 +88,12 @@ const ProductList = () => {
 
   return (
     <div className="container mx-auto p-4">
+      {userName && (
+        <div className="mb-4 text-center text-2xl font-semibold">
+          Welcome, {userName}! Happy Shopping!
+        </div>
+      )}
+
       <InfiniteScroll
         dataLength={products.length}
         next={fetchMoreData}
